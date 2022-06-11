@@ -23,11 +23,25 @@ async function write(data) {
   }
 }
 
-async function getAll() {
+async function getAll(query) {
   const data = await read();
-  return Object.entries(data).map(([id, value]) =>
+  let cars = Object.entries(data).map(([id, value]) =>
     Object.assign({}, { id }, value)
   );
+
+  if (query.search) {
+    cars = cars.filter( car => car.name.toLocaleLowerCase().includes(query.search.toLocaleLowerCase()));
+  }
+
+  if(query.from) {
+    cars = cars.filter(car => car.price >= Number(query.from));
+  }
+
+  if(query.to) {
+    cars = cars.filter(car => car.price <= Number(query.to));
+  }
+
+  return cars;
 }
 
 async function getById(id) {
