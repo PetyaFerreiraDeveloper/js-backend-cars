@@ -9,14 +9,13 @@
 // - [x] create
 // - [] edit
 // - [] delete
-// - [] search
+// - [x] search
 // [ ] implement controllers
 // - [x] home (catalog)
 // - [x] about
 // - [x] details
 // - [x] create
-// - [] delete
-// - [] search
+// - [x] search
 
 const express = require('express');
 const hbs = require('express-handlebars');
