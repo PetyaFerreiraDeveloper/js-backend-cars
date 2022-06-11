@@ -18,11 +18,13 @@
     <input type="submit" value="search" />
   </form>
 
-  {{#each cars}}
-  {{> carPreview}}
-  {{else}}
-  <p>No cars in database. <a href="/create">Create the first listing!</a></p>
-  {{/each}}
+  <div>
+    {{#each cars}}
+    {{> carPreview}}
+    {{else}}
+    <p>No cars in database. <a href="/create">Create the first listing!</a></p>
+    {{/each}}
+  </div>
 
 
 </main>

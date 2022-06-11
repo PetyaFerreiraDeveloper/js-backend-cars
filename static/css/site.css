@@ -72,7 +72,6 @@ div.cube {
     display: inline-block;
     border: 1px solid #2b415433;
     background: white;
-    width: 23%;
     vertical-align: top;
 }
 
@@ -97,7 +96,6 @@ button, main a.btn {
     text-decoration: none;
     display: inline-block;
     font-size: 18px;
-    width: 43%;
     margin: 12px;
     margin-left: 6%;
     border-radius: 4px;
