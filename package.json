@@ -1,0 +1,24 @@
+{
+  "name": "03.cubicle-part-1-resources",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PetyaFerreiraDeveloper/js-backend-cars.git"
+  },
+  "keywords": [],
+  "author": "PAN",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PetyaFerreiraDeveloper/js-backend-cars/issues"
+  },
+  "homepage": "https://github.com/PetyaFerreiraDeveloper/js-backend-cars#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "express-handlebars": "^6.0.6"
+  }
+}
