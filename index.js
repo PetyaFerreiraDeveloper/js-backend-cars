@@ -8,6 +8,9 @@
 
 const express = require('express');
 const hbs = require('express-handlebars');
+
+const carsService = require('./services/carsService');
+
 const { about } = require('./controllers/aboutController');
 const { create } = require('./controllers/createController');
 const { details } = require('./controllers/detailsController');
@@ -23,7 +26,7 @@ app.set('view engine', 'hbs');
 
 app.use(express.urlencoded({ extended: true }));
 app.use('/static', express.static('static'));
-
+app.use(carsService());
 
 app.get('/', home);
 app.get('/about', about);
