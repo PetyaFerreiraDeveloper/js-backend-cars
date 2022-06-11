@@ -1,16 +1,4 @@
 {
-  "dsfd5684": {
-    "name": "Subaru Legacy 2010",
-    "description": "We are a small family run business importing low volume hand picked vehicles by our trusted contacts in Japan.",
-    "imageUrl": "subaru-legacy.webp",
-    "price": 3300
-  },
-  "7e61de11-f0c2": {
-    "name": "Toyota Avensis Saloon (2015 - )",
-    "description": "Many buyers will appreciate the thorough changes Toyota has made to its Avensis – it feels a far more competitive company car option as a result, but still lacks standout features.",
-    "imageUrl": "toyota-avensis.jpg",
-    "price": 11900
-  },
   "3a517d68-d6a0": {
     "name": "Subaru Legacy 2010",
     "description": "We are a small family run business importing low volume hand picked vehicles by our trusted contacts in Japan.",
@@ -21,12 +9,6 @@
     "name": "VW Golf 1.9",
     "description": "With 131 used Volkswagen Golf 1.9 litre cars available on Auto Trader, we have the largest range of cars for sale available across the UK.",
     "imageUrl": "vw.jpg",
-    "price": 2699
-  },
-  "c64e5cdf-61cd": {
-    "name": "test",
-    "description": "testttt",
-    "imageUrl": "toyota-avensis.jpg",
-    "price": 1255
+    "price": 1000
   }
 }
