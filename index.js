@@ -10,6 +10,9 @@
 // - [] edit
 // - [x] delete
 // - [x] search
+// - [] accessory read
+// - [] accessory create
+// - [] attach accessory
 // [x] implement controllers
 // - [x] home (catalog)
 // - [x] about
@@ -18,49 +21,66 @@
 // - [x] search
 // - [x] edit
 // - [x] delete
+// - [] create accessory
+// - [] attach accessory to car
+// - [] update details to include accessories
 // [x] add front-end code
+// [x] add database connection
+// [x] create Car model
+// [] upgrade car service to use Car model
+// [] add validation rules to Car model
+// [] create Accessory model
+// [] update Car model to have a relation to Accessory model
 
-const express = require('express');
-const hbs = require('express-handlebars');
+const express = require("express");
+const hbs = require("express-handlebars");
 
-const carsService = require('./services/carsService');
+const initDb = require("./models");
 
-const { home } = require('./controllers/homeController');
-const { about } = require('./controllers/aboutController');
-const create = require('./controllers/createController');
-const { details } = require('./controllers/detailsController');
-const deleteController = require('./controllers/deleteController');
-const edit = require('./controllers/editController');
+const carsService = require("./services/carsService");
 
-const { notFound } = require('./controllers/notFound');
+const { home } = require("./controllers/homeController");
+const { about } = require("./controllers/aboutController");
+const create = require("./controllers/createController");
+const { details } = require("./controllers/detailsController");
+const deleteController = require("./controllers/deleteController");
+const edit = require("./controllers/editController");
 
-const app = express();
+const { notFound } = require("./controllers/notFound");
 
-app.engine('hbs', hbs.create({
-    extname: 'hbs'
-}).engine);
-app.set('view engine', 'hbs');
+start();
 
-app.use(express.urlencoded({ extended: true }));
-app.use('/static', express.static('static'));
-app.use(carsService());
+async function start() {
+  await initDb();
 
-app.get('/', home);
-app.get('/about', about);
-app.get('/details/:id', details);
+  const app = express();
 
-app.route('/create')
-    .get(create.get)
-    .post(create.post);
+  app.engine(
+    "hbs",
+    hbs.create({
+      extname: "hbs",
+    }).engine
+  );
+  app.set("view engine", "hbs");
 
-app.route('/delete/:id')
+  app.use(express.urlencoded({ extended: true }));
+  app.use("/static", express.static("static"));
+  app.use(carsService());
+
+  app.get("/", home);
+  app.get("/about", about);
+  app.get("/details/:id", details);
+
+  app.route("/create").get(create.get).post(create.post);
+
+  app
+    .route("/delete/:id")
     .get(deleteController.get)
     .post(deleteController.post);
 
-app.route('/edit/:id')
-    .get(edit.get)
-    .post(edit.post);
+  app.route("/edit/:id").get(edit.get).post(edit.post);
 
-app.all('*', notFound);
+  app.all("*", notFound);
 
-app.listen(3000, () => console.log('Server started on port 3000'));
+  app.listen(3000, () => console.log("Server started on port 3000"));
+}
