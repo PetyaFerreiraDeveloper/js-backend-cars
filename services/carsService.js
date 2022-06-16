@@ -55,7 +55,14 @@ async function deleteById(id) {
 }
 
 async function editById(id, car) {
-  await Car.findByIdAndUpdate(id, car);
+  const existing = await Car.findById(id);
+
+  existing.name = car.name;
+  existing.description = car.description;
+  existing.imageUrl = car.imageUrl;
+  existing.price = car.price;
+  
+  await existing.save();
 }
 
 // function nextId() {

@@ -1,10 +1,10 @@
 const { Schema, model } = require('mongoose');
 
 const carSchema = new Schema({
-    name: {type: String},
-    description: {type: String},
-    imageUrl: {type: String},
-    price: {type: Number},
+    name: {type: String, required: true, minLength: 3 },
+    description: {type: String, default: ""},
+    imageUrl: {type: String, default: "noImage.jpg", required: true},
+    price: {type: Number, required: true},
 });
 
 const Car = model('Car', carSchema);

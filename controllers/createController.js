@@ -1,6 +1,6 @@
 module.exports = {
   get(req, res) {
-    res.render('create', {title: 'Create Listing'});
+    res.render("create", { title: "Create Listing" });
   },
   async post(req, res) {
     const car = {
@@ -10,7 +10,12 @@ module.exports = {
       price: Number(req.body.price),
     };
 
-    await req.storage.createCar(car);
-    res.redirect('/');
-  }
+    try {
+      await req.storage.createCar(car);
+      res.redirect('/');
+    } catch (err) {
+      console.log('error creating record');
+      res.redirect("/create");
+    }
+  },
 };
