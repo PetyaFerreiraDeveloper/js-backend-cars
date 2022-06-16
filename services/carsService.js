@@ -1,14 +1,5 @@
 const Car = require("../models/Car");
-
-function carViewModel(car) {
-  return {
-    id: car._id,
-    name: car.name,
-    description: car.description,
-    imageUrl: car.imageUrl,
-    price: car.price,
-  };
-}
+const { carViewModel } = require('./util');
 
 async function getAll(query) {
   // const cars = await Car.find({}).lean(); // one way to solve the error from hbs
@@ -35,7 +26,7 @@ async function getAll(query) {
 }
 
 async function getById(id) {
-  const car = await Car.findById(id);
+  const car = await Car.findById(id).populate('accessories');
 
   if (car) {
     return carViewModel(car);
@@ -61,8 +52,16 @@ async function editById(id, car) {
   existing.description = car.description;
   existing.imageUrl = car.imageUrl;
   existing.price = car.price;
+  existing.accessories = car.accessories;
   
   await existing.save();
+}
+
+async function attachAccessory(carId, accessoryId) {
+  const existing = await Car.findById(carId);
+  existing.accessories.push(accessoryId);
+  await existing.save();
+
 }
 
 // function nextId() {
@@ -77,7 +76,8 @@ module.exports = () => (req, res, next) => {
     getById,
     createCar,
     deleteById, 
-    editById
+    editById,
+    attachAccessory
   };
   next();
 };

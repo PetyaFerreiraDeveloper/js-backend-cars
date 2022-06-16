@@ -47,6 +47,7 @@ const { details } = require("./controllers/detailsController");
 const deleteController = require("./controllers/deleteController");
 const edit = require("./controllers/editController");
 const accessory = require("./controllers/accessoryController");
+const attach = require("./controllers/attachController");
 
 const { notFound } = require("./controllers/notFound");
 
@@ -93,6 +94,11 @@ async function start() {
       .route('/accessory')
       .get(accessory.get)
       .post(accessory.post)
+
+      app
+      .route('/attach/:id')
+      .get(attach.get)
+      .post(attach.post)
 
   app.all("*", notFound);
 
