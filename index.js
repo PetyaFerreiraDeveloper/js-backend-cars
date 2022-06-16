@@ -7,7 +7,7 @@
 // - [x] read all
 // - [x] read one by ID
 // - [x] create
-// - [] edit
+// - [x] edit
 // - [x] delete
 // - [x] search
 // - [] accessory read
@@ -28,8 +28,8 @@
 // [x] add database connection
 // [x] create Car model
 // [x] upgrade car service to use Car model
-// [] add validation rules to Car model
-// [] create Accessory model
+// [x] add validation rules to Car model
+// [x] create Accessory model
 // [] update Car model to have a relation to Accessory model
 
 const express = require("express");
@@ -38,6 +38,7 @@ const hbs = require("express-handlebars");
 const initDb = require("./models");
 
 const carsService = require("./services/carsService");
+const accessoryService = require("./services/accessoryService");
 
 const { home } = require("./controllers/homeController");
 const { about } = require("./controllers/aboutController");
@@ -45,6 +46,7 @@ const create = require("./controllers/createController");
 const { details } = require("./controllers/detailsController");
 const deleteController = require("./controllers/deleteController");
 const edit = require("./controllers/editController");
+const accessory = require("./controllers/accessoryController");
 
 const { notFound } = require("./controllers/notFound");
 
@@ -66,19 +68,31 @@ async function start() {
   app.use(express.urlencoded({ extended: true }));
   app.use("/static", express.static("static"));
   app.use(carsService());
+  app.use(accessoryService());
 
   app.get("/", home);
   app.get("/about", about);
   app.get("/details/:id", details);
 
-  app.route("/create").get(create.get).post(create.post);
+  app
+    .route("/create")
+    .get(create.get)
+    .post(create.post);
 
   app
     .route("/delete/:id")
     .get(deleteController.get)
     .post(deleteController.post);
 
-  app.route("/edit/:id").get(edit.get).post(edit.post);
+  app
+    .route("/edit/:id")
+    .get(edit.get)
+    .post(edit.post);
+
+    app
+      .route('/accessory')
+      .get(accessory.get)
+      .post(accessory.post)
 
   app.all("*", notFound);
 

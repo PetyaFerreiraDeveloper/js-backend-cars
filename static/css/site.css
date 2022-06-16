@@ -11,7 +11,6 @@ header ul {
 }
 
 img {
-    max-width: 200px;
     height: 200px;
     width: auto;
 }
@@ -73,8 +72,8 @@ div.cube {
     display: inline-block;
     border: 1px solid #2b415433;
     background: white;
+    width: 23%;
     vertical-align: top;
-    width: 250px;
 }
 
 div.cube:hover p.name {
@@ -91,6 +90,7 @@ p.name {
     border-bottom: 1px solid #2b415433;
 }
 
+
 button, main a.btn {
     border: none;
     padding: 8px;
@@ -98,8 +98,8 @@ button, main a.btn {
     text-decoration: none;
     display: inline-block;
     font-size: 18px;
+    width: 35%;
     margin: 12px;
-    margin-left: 6%;
     border-radius: 4px;
     background: #607588;
     color: white;
@@ -229,6 +229,19 @@ h2{
     text-align: center;
 }
 
+.accessories .accessory{
+    display: inline-block;
+    background-color: #f3f3f2;
+    width: 20%;
+    padding: 1%;
+    margin: 1%;
+}
+
+.accessories, .italic{
+    text-align: center;
+    font-style: italic;
+}
+
 footer {
     background: #607588;
     padding: 1em;
@@ -259,12 +272,4 @@ footer {
     to {
         opacity: 0;
     }
-}
-
-.description {
-    display: none;
-}
-
-.description p {
-    margin: 10px;
 }
