@@ -10,9 +10,14 @@
 // - [x] edit
 // - [x] delete
 // - [x] search
-// - [] accessory read
-// - [] accessory create
-// - [] attach accessory
+// - [x] accessory read
+// - [x] accessory create
+// - [x] attach accessory
+// - [] create register user service
+// - [] create login user service
+// - [] create logout user service
+// - [] add authorization checks to data modification
+
 // [x] implement controllers
 // - [x] home (catalog)
 // - [x] about
@@ -21,16 +26,22 @@
 // - [x] search
 // - [x] edit
 // - [x] delete
-// - [] create accessory
-// - [] attach accessory to car
-// - [] update details to include accessories
+// - [x] create accessory
+// - [x] attach accessory to car
+// - [x] update details to include accessories
+// - [] auth controller with login, register and logout actions
+// - [] protect the routes which anonimous users should not reach
+
 // [x] add front-end code
 // [x] add database connection
 // [x] create Car model
 // [x] upgrade car service to use Car model
 // [x] add validation rules to Car model
 // [x] create Accessory model
-// [] update Car model to have a relation to Accessory model
+// [x] update Car model to have a relation to Accessory model
+// [] add session middleware and auth libraries
+// [] create User model
+// [] add owner property to Car, Accessory models
 
 const express = require("express");
 const hbs = require("express-handlebars");
@@ -48,6 +59,8 @@ const deleteController = require("./controllers/deleteController");
 const edit = require("./controllers/editController");
 const accessory = require("./controllers/accessoryController");
 const attach = require("./controllers/attachController");
+const { registerGet, registerPost, loginGet, loginPost, logoutGet } =
+  require("./controllers/auth");
 
 const { notFound } = require("./controllers/notFound");
 
@@ -75,30 +88,21 @@ async function start() {
   app.get("/about", about);
   app.get("/details/:id", details);
 
-  app
-    .route("/create")
-    .get(create.get)
-    .post(create.post);
+  app.route("/create").get(create.get).post(create.post);
 
   app
     .route("/delete/:id")
     .get(deleteController.get)
     .post(deleteController.post);
 
-  app
-    .route("/edit/:id")
-    .get(edit.get)
-    .post(edit.post);
+  app.route("/edit/:id").get(edit.get).post(edit.post);
 
-    app
-      .route('/accessory')
-      .get(accessory.get)
-      .post(accessory.post)
+  app.route("/accessory").get(accessory.get).post(accessory.post);
 
-      app
-      .route('/attach/:id')
-      .get(attach.get)
-      .post(attach.post)
+  app.route("/attach/:id").get(attach.get).post(attach.post);
+
+  app.route("/register").get(registerGet).post(registerPost);
+  app.route("/login").get(loginGet).post(loginPost);
 
   app.all("*", notFound);
 
