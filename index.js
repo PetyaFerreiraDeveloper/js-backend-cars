@@ -16,7 +16,7 @@
 // - [x] create register user service
 // - [x] create login user service
 // - [x] create logout user service
-// - [] add authorization checks to data modification
+// - [x] add authorization checks to data modification
 
 // [x] implement controllers
 // - [x] home (catalog)
@@ -30,7 +30,8 @@
 // - [x] attach accessory to car
 // - [x] update details to include accessories
 // - [x] auth controller with login, register and logout actions
-// - [] protect the routes which anonimous users should not reach
+// - [x] protect the routes which anonimous users should not reach
+// - [x] only show edit buttons for record owner
 
 // [x] add front-end code
 // [x] add database connection
@@ -41,7 +42,7 @@
 // [x] update Car model to have a relation to Accessory model
 // [x] add session middleware and auth libraries
 // [x] create User model
-// [] add owner property to Car, Accessory models
+// [x] add owner property to Car, Accessory models
 
 const express = require("express");
 const hbs = require("express-handlebars");
@@ -67,9 +68,10 @@ const {
   loginGet,
   loginPost,
   logout,
-} = require("./controllers/auth");
+} = require("./controllers/authController");
 const { isLoggedIn } = require("./services/util");
 const { notFound } = require("./controllers/notFound");
+
 
 start();
 

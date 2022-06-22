@@ -7,6 +7,7 @@ const carSchema = new Schema({
     price: {type: Number, required: true},
     accessories: {type: [ObjectId], default: [], ref: 'Accessory'},
     isDeleted: {type: Boolean, default: false },
+    owner: {type: ObjectId, ref: 'User'}
 });
 
 const Car = model('Car', carSchema);
