@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const { MongooseError } = require("mongoose");
 
 function accessoryViewModel(accessory) {
   return {
@@ -47,10 +48,39 @@ function isLoggedIn() {
   };
 }
 
+function mapError(error) {
+
+  if(Array.isArray(error)) {
+    return error;
+  } else if (error.name == 'MongoServerError') {
+    if(error.code == 11000) {
+      return [{
+        msg: 'Username already exists'
+      }];
+    } else {
+      return [{
+        msg: 'request error'
+      }];
+  }} else if (error.name == 'ValidationError') {
+
+    return Object.values(error.errors).map(e => ({ msg: e.message }));
+
+  } else if (typeof error.message == 'string') {
+    return [{
+      msg: error.message
+    }];
+  } else {
+    return [{
+      msg: 'request error'
+    }];
+  }
+}
+
 module.exports = {
   accessoryViewModel,
   carViewModel,
   hashPassword,
   comparePassword,
   isLoggedIn,
+  mapError
 };
