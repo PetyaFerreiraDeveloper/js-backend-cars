@@ -14,9 +14,12 @@ module.exports = {
     try {
       await req.storage.createCar(car);
       res.redirect('/');
-    } catch (err) {
+    } catch (errors) {
+      if(errors.name == 'ValidationError') {
+        errors = Object.values(errors.errors).map(e => ({msg: e.message}));
+      }
       console.log('error creating record');
-      res.redirect("/create");
+      res.render("create", { title: "Create Listing", errors, data: {name: req.body.name, description: req.body.description, imageUrl: req.body.imageUrl, price: req.body.price} });
     }
   },
 };

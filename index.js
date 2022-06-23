@@ -62,13 +62,7 @@ const deleteController = require("./controllers/deleteController");
 const edit = require("./controllers/editController");
 const accessory = require("./controllers/accessoryController");
 const attach = require("./controllers/attachController");
-const {
-  registerGet,
-  registerPost,
-  loginGet,
-  loginPost,
-  logout,
-} = require("./controllers/authController");
+const authController = require("./controllers/authController");
 const { isLoggedIn } = require("./services/util");
 const { notFound } = require("./controllers/notFound");
 
@@ -120,25 +114,7 @@ async function start() {
 
   app.route("/attach/:id").get(isLoggedIn(), attach.get).post(isLoggedIn(), attach.post);
 
-  app.route("/register")
-    .get(registerGet)
-    .post(
-      body('username')
-        .isLength({min: 3}).withMessage('username must be minimum three characters long')
-        .isAlphanumeric().withMessage('username may only contain letters and numbers'),
-      body('password')
-        .notEmpty().withMessage('Password is required')
-        .isLength({min: 8}).withMessage('Password must be at least 8 characters long'),
-      body('repeatPassword')
-        .custom(async (value, {req} ) => {
-          if(value != req.body.password) {
-            throw new Error('Passwords don\'t match');
-          }
-        }),
-      registerPost);
-
-  app.route("/login").get(loginGet).post(loginPost);
-  app.get("/logout", logout);
+  app.use(authController);
 
   app.all("*", notFound);
 
